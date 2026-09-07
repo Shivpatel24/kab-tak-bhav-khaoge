@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>kab tak ignore karti rahegi?</title>
+<style>
+  :root{
+    --cream:#fff6ea;
+    --blush:#ffdce6;
+    --petal:#ff9fb5;
+    --leaf:#5c8a52;
+    --sun:#ffc93c;
+    --sun-dark:#e8a316;
+    --ink:#4a3b3a;
+    --yes-green:#3ba35c;
+    --yes-green-dark:#2c8047;
+    --no-red:#e0554f;
+    --no-red-dark:#c8433d;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    width:100%;
+    overflow-x:hidden;
+  }
+
+  body{
+    font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+    background: radial-gradient(circle at 20% 15%, var(--blush) 0%, var(--cream) 55%, var(--cream) 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    min-height:100vh;
+    min-height:100dvh;
+    padding: 6vh 5vw calc(4vh + 24px);
+    color: var(--ink);
+    text-align:center;
+    position:relative;
+  }
+
+  .flowers{
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap: clamp(18px, 6vw, 48px);
+    margin-bottom: clamp(10px, 3vh, 24px);
+  }
+
+  .flowers svg{
+    width: clamp(48px, 12vw, 84px);
+    height: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+  }
+
+  .sway{
+    animation: sway 4s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+  .sway.delay{
+    animation-delay: 1.2s;
+  }
+
+  @keyframes sway{
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  h1{
+    font-size: clamp(1.4rem, 5.2vw, 2.4rem);
+    line-height:1.4;
+    max-width: 620px;
+    margin: 0 0 clamp(28px, 5vh, 48px);
+    font-weight:700;
+    color:#5a3a3f;
+  }
+
+  .buttons{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: clamp(16px, 4vw, 32px);
+    flex-wrap: wrap;
+    position:relative;
+    min-height: 90px;
+  }
+
+  button{
+    border:none;
+    border-radius: 999px;
+    padding: 16px 30px;
+    font-size: clamp(0.95rem, 3vw, 1.15rem);
+    font-weight:700;
+    cursor:pointer;
+    color:#fff;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, font-size 0.25s ease, padding 0.25s ease, background 0.2s ease, left 0.35s ease, top 0.35s ease;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+  }
+
+  button:active{
+    transform: scale(0.96);
+  }
+
+  #yesBtn{
+    background: linear-gradient(135deg, var(--yes-green), var(--yes-green-dark));
+    font-size: clamp(1.15rem, 4vw, 1.4rem);
+    padding: 0.7em 1.4em;
+  }
+
+  #yesBtn:hover{
+    box-shadow: 0 10px 22px rgba(59,163,92,0.4);
+  }
+
+  #noBtn{
+    background: linear-gradient(135deg, var(--no-red), var(--no-red-dark));
+    font-size: clamp(0.85rem, 2.6vw, 1rem);
+    padding: 13px 22px;
+    max-width: 55vw;
+    white-space: normal;
+    line-height:1.3;
+  }
+
+  #noBtn:hover{
+    box-shadow: 0 10px 22px rgba(224,85,79,0.4);
+  }
+
+  .reveal{
+    display:none;
+    margin-top: clamp(30px, 6vh, 50px);
+    font-size: clamp(1.2rem, 4.5vw, 1.7rem);
+    font-weight:700;
+    color:#3ba35c;
+    max-width: 560px;
+  }
+
+  .reveal.show{
+    display:block;
+    animation: pop 0.5s ease;
+  }
+
+  @keyframes pop{
+    0% { transform: scale(0.7); opacity:0; }
+    70% { transform: scale(1.08); opacity:1; }
+    100% { transform: scale(1); }
+  }
+
+  body.celebrating{
+    justify-content:center;
+  }
+
+  footer{
+    margin-top: auto;
+    padding-top: 6vh;
+    padding-bottom: 32px;
+    font-size: 0.8rem;
+    color: #9b8482;
+    max-width: 500px;
+  }
+
+  @media (max-width: 420px){
+    .buttons{ gap: 14px; }
+    #noBtn{ max-width: 80vw; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="flowers">
+    <svg class="sway" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <line x1="50" y1="60" x2="50" y2="135" stroke="#5c8a52" stroke-width="4"/>
+      <path d="M50 100 C30 95, 25 115, 15 118" stroke="#5c8a52" stroke-width="3" fill="none"/>
+      <path d="M50 85 C70 80, 78 98, 88 100" stroke="#5c8a52" stroke-width="3" fill="none"/>
+      <g transform="translate(50,55)">
+        <path d="M0,0 C-8,-25 -22,-30 -20,-8 C-19,4 -8,8 0,0 Z" fill="#ffffff" stroke="#e9d9e6" stroke-width="1"/>
+        <path d="M0,0 C8,-25 22,-30 20,-8 C19,4 8,8 0,0 Z" fill="#ffffff" stroke="#e9d9e6" stroke-width="1"/>
+        <path d="M0,0 C-18,10 -22,26 -4,20 C6,17 4,6 0,0 Z" fill="#fdfdfd" stroke="#e9d9e6" stroke-width="1"/>
+        <path d="M0,0 C18,10 22,26 4,20 C-6,17 -4,6 0,0 Z" fill="#fdfdfd" stroke="#e9d9e6" stroke-width="1"/>
+        <circle cx="0" cy="0" r="6" fill="#ffc93c"/>
+      </g>
+    </svg>
+
+    <svg class="sway delay" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <line x1="50" y1="65" x2="50" y2="135" stroke="#5c8a52" stroke-width="4"/>
+      <path d="M50 105 C34 100, 28 118, 18 120" stroke="#5c8a52" stroke-width="3" fill="none"/>
+      <g transform="translate(50,45)">
+        <circle cx="0" cy="0" r="16" fill="#e8a316"/>
+        <circle cx="0" cy="0" r="11" fill="#c9860f"/>
+        <g fill="#ffc93c">
+          <path d="M0,-32 C6,-20 6,-14 0,-10 C-6,-14 -6,-20 0,-32 Z"/>
+          <path d="M0,32 C6,20 6,14 0,10 C-6,14 -6,20 0,32 Z"/>
+          <path d="M-32,0 C-20,-6 -14,-6 -10,0 C-14,6 -20,6 -32,0 Z"/>
+          <path d="M32,0 C20,-6 14,-6 10,0 C14,6 20,6 32,0 Z"/>
+          <path d="M-23,-23 C-13,-19 -10,-14 -13,-9 C-19,-11 -22,-15 -23,-23 Z"/>
+          <path d="M23,23 C13,19 10,14 13,9 C19,11 22,15 23,23 Z"/>
+          <path d="M-23,23 C-13,19 -10,14 -13,9 C-19,11 -22,15 -23,23 Z"/>
+          <path d="M23,-23 C13,-19 10,-14 13,-9 C19,-11 22,-15 23,-23 Z"/>
+        </g>
+        <circle cx="0" cy="0" r="16" fill="#e8a316"/>
+        <circle cx="0" cy="0" r="11" fill="#f2b41a"/>
+      </g>
+    </svg>
+
+    <svg class="sway" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <line x1="50" y1="60" x2="50" y2="135" stroke="#5c8a52" stroke-width="4"/>
+      <path d="M50 95 C68 90, 74 108, 84 110" stroke="#5c8a52" stroke-width="3" fill="none"/>
+      <g transform="translate(50,55)">
+        <path d="M0,0 C-8,-25 -22,-30 -20,-8 C-19,4 -8,8 0,0 Z" fill="#fff0f5" stroke="#f2c9dc" stroke-width="1"/>
+        <path d="M0,0 C8,-25 22,-30 20,-8 C19,4 8,8 0,0 Z" fill="#fff0f5" stroke="#f2c9dc" stroke-width="1"/>
+        <path d="M0,0 C-18,10 -22,26 -4,20 C6,17 4,6 0,0 Z" fill="#fff5f8" stroke="#f2c9dc" stroke-width="1"/>
+        <path d="M0,0 C18,10 22,26 4,20 C-6,17 -4,6 0,0 Z" fill="#fff5f8" stroke="#f2c9dc" stroke-width="1"/>
+        <circle cx="0" cy="0" r="6" fill="#ffc93c"/>
+      </g>
+    </svg>
+  </div>
+
+  <h1 id="question">kab tak ignore karti rahegi, abb toh mujhse baat karle??</h1>
+
+  <div class="buttons" id="buttonsWrap">
+    <button id="yesBtn" onclick="sayYes()">Yes</button>
+    <button id="noBtn" onclick="sayNo()">No</button>
+  </div>
+
+  <p id="reveal" class="reveal">yayy! knew you'd come around 🌻</p>
+
+  <footer id="siteFooter">made with a little bit of love (and a lot of nerve) by someone who quite literally hit your head with racquet and still thought "worth it" — so please just say yes.</footer>
+
+<script>
+  const noButtonTexts = [
+    "are you sure?",
+    "aisa chance baar baar nahi milta",
+    "think again",
+    "last chance",
+    "surely not?",
+    "you might regret this later",
+    "give it another thought",
+    "this could be a mistake",
+    "tiramisu khilane le kar jaunga",
+    "don't be so cold",
+    "jevliska?",
+    "is that your final answer?",
+    "i'll buy you momos",
+    "maan jao na, cutie",
+    "pizza treat on me!",
+    "ek aur baar soch lo",
+    "have a heart!",
+    "i'll let you steal my hoodies",
+    "no refund on this offer",
+    "pani puri date?",
+    "take your time, soch lo",
+    "just click yes!",
+    "i promise to share my fries",
+    "nakhre mat dikha itne",
+    "you know you want to say yes",
+    "stop playing hard to get",
+    "error 404: 'No' not found",
+    "ekdum final?",
+    "i'll carry your shopping bags",
+    "chocolate ice cream waiting for you",
+    "yeh galat baat hai",
+    "are you absolutely, positively sure?",
+    "i'll never say no to taking your pictures",
+    "meri momos ki kasam",
+    "you're making a huge mistake!",
+    "i'll let you choose the movie",
+    "biryani khilaunga pakka",
+    "i'll give you head massages",
+    "yaar aise kon karta hai?",
+    "button is broken, you have to click yes",
+    "okay, i'll add extra cheese to everything",
+    "bhagwan se toh daro!",
+    "don't ignore the chemistry!",
+    "main gussa ho jaunga",
+    "okay, what if i bribe you?",
+    "i'll buy you whatever you want from zara",
+    "zara soch samajh ke button dabao",
+    "still no? i admire your persistence",
+    "but we look so good together!",
+    "mera dil rakh lo yaar",
+    "i'm running out of things to say",
+    "main chala jaunga bata raha hu",
+    "fine, double dessert!",
+    "aise tadpana zaroori hai kya?",
+    "i'll text you back in 0.01 seconds",
+    "c'mon, just move the mouse a little to the left",
+    "ziddi mat bano itna",
+    "i'm too cool to beg, but... yes?",
+    "you're testing my patience now",
+    "okay, triple dessert. final offer.",
+    "are you pressing no just to see these messages?",
+    "pakka na? lock kar diya jaye?",
+    "i make a great plus one, just saying",
+    "tumhara hi nuksaan hai isme",
+    "what if i say please with a cherry on top?",
+    "chalo ek aur mauka diya",
+    "i'll learn how to cook your favorite dish",
+    "bhav khana band karo ab",
+    "you're playing a dangerous game",
+    "i'll even pretend to like your weird music",
+    "itna mat socho, haan bol do",
+    "okay, i'll give you the aux cord in the car",
+    "meri cute si smile dekh ke haan bol do",
+    "don't let your ego win",
+    "i'll take you for a late-night drive",
+    "bas bahut hua, ab yes click karo",
+    "you're secretly smiling right now, aren't you?",
+    "i'll buy you that matching aesthetic outfit",
+    "chalo theek hai, i'll pay for the next 3 dates",
+    "this is getting out of hand now",
+    "mujhe pata hai tumhara mann hai",
+    "still no? wow, tough crowd.",
+    "i'll be your personal photographer",
+    "acha baba sorry, ab click yes",
+    "you can't resist my charm forever",
+    "fine, i'll let you have the last slice of pizza",
+    "mouse kharab ho jayega itna click karogi toh",
+    "okay, you win. i'll treat you to fine dining.",
+    "ab toh sharam kar lo thodi!",
+    "i'm clicking yes for you in my mind",
+    "matlab tumhari haan hai",
+    "last warning, otherwise i'm kidnapping you for the date",
+  ];
+
+  let noClickCount = 0;
+  const startYesRem = 1.25;
+  const maxYesRem = 3.3;
+  const yesGrowthPerClick = (maxYesRem - startYesRem) / noButtonTexts.length;
+  let yesRem = startYesRem;
+
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+
+  function sayNo(){
+    if (noClickCount >= noButtonTexts.length){
+      sayYes();
+      return;
+    }
+
+    noBtn.textContent = noButtonTexts[noClickCount % noButtonTexts.length];
+    noClickCount++;
+
+    yesRem = Math.min(yesRem + yesGrowthPerClick, maxYesRem);
+    yesBtn.style.fontSize = yesRem + 'rem';
+
+    moveNoButton();
+
+    if (noClickCount >= noButtonTexts.length){
+      sayYes();
+    }
+  }
+
+  function moveNoButton(){
+    if (noBtn.style.position !== 'fixed'){
+      const startRect = noBtn.getBoundingClientRect();
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = startRect.left + 'px';
+      noBtn.style.top = startRect.top + 'px';
+      noBtn.style.margin = '0';
+      noBtn.style.zIndex = '10';
+    }
+
+    const rect = noBtn.getBoundingClientRect();
+    const margin = 16;
+    const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
+    const maxTop = Math.max(margin, window.innerHeight - rect.height - margin);
+
+    const randomLeft = margin + Math.random() * (maxLeft - margin);
+    const randomTop = margin + Math.random() * (maxTop - margin);
+
+    noBtn.style.left = randomLeft + 'px';
+    noBtn.style.top = randomTop + 'px';
+  }
+
+  function sayYes(){
+    document.getElementById('reveal').classList.add('show');
+    yesBtn.style.display = 'none';
+    noBtn.style.display = 'none';
+    document.getElementById('question').style.display = 'none';
+    document.getElementById('siteFooter').style.display = 'none';
+    document.body.classList.add('celebrating');
+  }
+</script>
+
+</body>
+</html>
